@@ -18,7 +18,7 @@ public class Server extends Thread {
 	static Socket sock = null;
 	static DataOutputStream out = null;
 	static DataInputStream in = null;
-//	public static Scanner se = null;
+ 
 	public static String fileName = "*Path*\Log.txt";
 	public static String line = null;
 
@@ -26,28 +26,24 @@ public class Server extends Thread {
 		this.sock = clientSocket;
 	}
 
-	// public final static int SOCKET_PORT = 6664;
-
+ 
 	public static void main(String[] args)
 			throws IOException, NoSuchAlgorithmException, InterruptedException, IllegalMonitorStateException {
 
 		// For every client starting a separate thread
-		servsock = new ServerSocket(SOCKET_PORT);
-//		System.out.println("Enter 'Log' View log file\n or");
-//		System.out.println("Enter and key to connect to the client \n");
+		servsock = new ServerSocket(SOCKET_PORT); 
 
 		while (true) {
 
 			try {
-				// server.accept returns a client connection
-				
+		 
 				System.out.println("Waiting for request...");
 				System.out.println("Enter 'Log' View log file\n or");
 				System.out.println("Enter any key to connect to the client \n");
 				Scanner se = new Scanner(System.in);				
 				String input = se.nextLine();
 				if (!input.equalsIgnoreCase("Log")) {
-					//se.close();
+				 
 					ti = new Thread(new ClientWorker(servsock.accept()));
 					ti.start();
 					synchronized (ti) {
@@ -63,7 +59,7 @@ public class Server extends Thread {
 					}
 					fileReader.close();
 					bufferedReader.close();
-				//	se.close();
+			 
 				}
 			}
 			
