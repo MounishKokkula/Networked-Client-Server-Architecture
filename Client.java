@@ -52,8 +52,7 @@ public class Client extends Thread {
 		for (byte b : finalized)
 			toSend += String.format("%02x", b);
 		return toSend;
-		// out.writeUTF(toSend);
-		// out.flush();
+	 
 	}
 
 	public static List diff(HashMap<String, String> map, List clientList) {
@@ -88,17 +87,12 @@ public class Client extends Thread {
 
 	public static void main(String[] args) {
 
-		//
-		// }
-		//
-		// public void run(){
+		 
 		int bytesRead;
 		int current;
 
-		DataOutputStream out = null;// new
-		// DataOutputStream(clientSocket.getOutputStream());
-		DataInputStream in = null; // new
-		// DataInputStream(clientSocket.getInputStream());
+		DataOutputStream out = null;  
+		DataInputStream in = null;  
 		se = new Scanner(System.in);
 		System.out.println("Enter Client Name to connect to Server. (Enter 'No' to Exit!)");
 		clientName = se.nextLine();
@@ -122,9 +116,7 @@ public class Client extends Thread {
 				} else {
 					System.out.println("Ok Man! As you wish \nEXITING !!!");
 					System.exit(1);
-				}
-				// String inString = in.readUTF();
-				// System.out.println(in.readUTF());
+				} 
 
 				List<String> serverList = new ArrayList<String>();
 				HashMap<String, String> map = new HashMap<String, String>();
@@ -136,23 +128,17 @@ public class Client extends Thread {
 						serverParts = inString.split("/@/");
 						String fileName = serverParts[0];
 						String shaCode = serverParts[1];
-						map.put(shaCode, fileName);
-						// serverList.add(inString);
-						// System.out.println(inString);
+						map.put(shaCode, fileName); 
 					}
-				}
-				// clientFileName = ClientFileLocation + "/" + inString;
-
-				// Checking the difference between files on client and server
+				} 
 				
-				List clientList = list(ClientFileLocation);
-				// System.out.println(diff(serverList,clientList));
+				List clientList = list(ClientFileLocation); 
+				
 				// difference between server and client
 				List diffList = diff(map, clientList);
 				
 				// send diff list to server
-				for (int j = 0; j < diffList.size(); j++) {
-					// System.out.println(diffList.get(j));
+				for (int j = 0; j < diffList.size(); j++) { 
 					out.writeUTF((String) diffList.get(j));
 				}
 				out.writeUTF("EOS");
@@ -182,8 +168,7 @@ public class Client extends Thread {
 						while (fileSize > 0
 								&& (n = in.read(mybytearray, 0, (int) Math.min(mybytearray.length, fileSize))) != -1) {
 							fos.write(mybytearray, 0, n);
-							// current = current + in.read(mybytearray, 0, (int)
-							// Math.min(mybytearray.length, fileSize));
+							 
 							fileSize -= n;
 						}
 
