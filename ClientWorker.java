@@ -44,8 +44,7 @@ public class ClientWorker implements Runnable {
 		for (File file : fList) {
 			if (file.isFile()) {
 				serverList.add(file.getName() + "/@/" + calSHA(file));
-
-				// add hashed value for each file and concatenate it to the list
+ 
 			}
 		}
 		return serverList;
@@ -69,11 +68,8 @@ public class ClientWorker implements Runnable {
 		String serverFileName;
 		long fileSize;
 		try {
-			while (i < diffList.size()) {
-
-				// System.out.println(diffList.get(i));
-				serverFileName = ServerFileLocation + "/" + (String) diffList.get(i);
-				// ServerFileLocation += "/" + serverFileName;
+			while (i < diffList.size()) { 
+				serverFileName = ServerFileLocation + "/" + (String) diffList.get(i); 
 
 				// send file
 				File myFile = new File(serverFileName);
@@ -86,7 +82,7 @@ public class ClientWorker implements Runnable {
 						out.writeLong(len);
 						System.out.println("\n o(^_-)O  == Syncing files ==  O(-_^)o  \n");
 						System.out.println(" \n Sending file: " + diffList.get(i) + "\nFile Size in bytes: " + len);
-						// System.out.println(myFile.getAbsolutePath());
+						 
 						int read = 0;
 						while ((read = input.read()) != -1)
 							out.writeByte(read);
@@ -95,23 +91,12 @@ public class ClientWorker implements Runnable {
 						System.out.println(" \n File successfully sent!");
 					}
 					i = i + 1;
-					/*
-					 * fis = new FileInputStream(myFile);
-					 * 
-					 * bis = new BufferedInputStream(fis); bis.read(mybytearray,
-					 * 0, mybytearray.length); // os = sock.getOutputStream();
-					 * 
-					 * System.out.println("Sending " + (String) diffList.get(i)
-					 * + "(" + mybytearray.length + " bytes)");
-					 * out.write(mybytearray, 0, mybytearray.length); i = i + 1;
-					 */
-
-					// out.flush();
+					 
 				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
+					 
 					e.printStackTrace();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
+					 
 					e.printStackTrace();
 				}
 			}
@@ -123,7 +108,7 @@ public class ClientWorker implements Runnable {
 	}
 
 	public static synchronized void leave() throws IOException {
-		// System.out.println("Closing the connections ");
+	 
 		if (fis != null)
 			fis.close();
 		if (bis != null)
@@ -138,14 +123,7 @@ public class ClientWorker implements Runnable {
 	}
 
 	@Override
-	public synchronized void run() {
-//		System.out.println("Enter 'Log' View log file\n or");
-//		System.out.println("Enter and key to connect to the client \n");
-//		se = new Scanner(System.in);
-//		String input = se.nextLine();
-		try {
-//			if (!input.equalsIgnoreCase("Log")) {
-
+	public synchronized void run() { 
 				in = new DataInputStream(client.getInputStream());
 				out = new DataOutputStream(client.getOutputStream());
 				clientName = in.readUTF();
@@ -173,7 +151,7 @@ public class ClientWorker implements Runnable {
 						System.out.println(((String) serverList.get(j)).split("/@/")[0]);
 
 						out.writeUTF((String) serverList.get(j));
-						// out.writeUTF(" ");
+						 
 					}
 					out.writeUTF("EOS");
 					String inString;
@@ -188,18 +166,12 @@ public class ClientWorker implements Runnable {
 						}
 					}
 
-					// System.out.println("The difference list- \nFiles on
-					// Server
-					// and not on Client: ");
-					// System.out.println(diffList);
+					 
 					pull(diffList);
 					diffList.remove(0);
 					bufferedWriter.write(dtf.format(now) + " :: " + "Requested difflist files" + diffList.toString());
 					bufferedWriter.newLine();
-					// this.notify();
-					// String serverDir =
-					// "C:/Users/Mounish/Documents/books/ComputerNetworks/ServerMusic";
-					// List serverList = list(ServerFileLocation);
+					 
 					bufferedWriter.close();
 					fileWriter.close();
 					this.notifyAll();
@@ -207,15 +179,7 @@ public class ClientWorker implements Runnable {
 				}
 
 				System.out.println(" \nDone.");
-
-//			} else {
-//				FileReader fileReader = new FileReader(fileName);
-//				BufferedReader bufferedReader = new BufferedReader(fileReader);
-//				while ((line = bufferedReader.readLine()) != null) {
-//					System.out.println(line);
-//				}
-//				bufferedReader.close();
-//			}
+ 
 		}  catch (SocketException e){
 			System.out.println("Connection interupted by peer!");
 		}
